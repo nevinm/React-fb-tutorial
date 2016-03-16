@@ -12,14 +12,18 @@ var CommentList = React.createClass({
             )
         });
 
-        return ( < div className = "commentList" > { commentNodes } < /div>)
+        return (<div className = "commentList" > { commentNodes } </div>);
     }
 });
 
 var CommentForm = React.createClass({
     render: function() {
-        return ( < div className = "commentForm" >
-            Hello, world!I am a CommentForm. < /div>
+        return (
+            <form className="commentForm">
+                <input type="text" placeholder="Your name" />
+                <input type="text" placeholder="Say something..." />
+                <input type="submit" value="Post" />
+            </form>
         );
     }
 });
@@ -46,10 +50,10 @@ var CommentBox = React.createClass({
     	setInterval(this.loadCommentsFromServer, this.props.pollInterval)
     },
     render: function() {
-        return ( < div className = "commentBox" >
-            < h1 > Comments < /h1>
-            < CommentList data = { this.state.data }/ > < CommentForm / >
-            < /div>
+        return ( <div className = "commentBox" >
+            <h1> Comments </h1>
+            <CommentList data = { this.state.data } /> <CommentForm />
+            </div>
         );
     }
 });
@@ -60,12 +64,12 @@ var Comment = React.createClass({
         return { __html: rawMarkup };
     },
     render: function() {
-        return ( < div className = "comment" >
-            < h2 className = "commentAuthor" > { this.props.author } < /h2>
-            < span dangerouslySetInnerHTML = { this.rawMarkup() }
-            /> < /div>
+        return ( <div className = "comment" >
+            <h2 className = "commentAuthor" > { this.props.author } </h2>
+            <span dangerouslySetInnerHTML = { this.rawMarkup() }
+            /> </div>
         );
     }
 })
 
-ReactDOM.render( <CommentBox url ="/api/comments/"/> , document.getElementById('content'))
+ReactDOM.render( <CommentBox url ="/api/comments/" pollInterval={2000}/> , document.getElementById('content'))
